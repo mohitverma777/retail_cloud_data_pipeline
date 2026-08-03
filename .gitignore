@@ -1,0 +1,34 @@
+# Environment Variables & Sensitive Credentials
+.env
+.env.local
+dags/.env
+!.env.example
+!dags/.env.example
+
+# Python & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# Airflow Logs & Outputs
+logs/
+dags/logs/
+*.pid
+
+# dbt Build Artifacts & Logs
+target/
+dags/retail_transformation/target/
+dags/retail_transformation/dbt_packages/
+dags/retail_transformation/logs/
+
+# Operating System & IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log

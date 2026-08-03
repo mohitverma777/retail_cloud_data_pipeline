@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+requests
+faker
+boto3
+pandas
+pyarrow
+dbt-snowflake
+dbt-redshift
+apache-airflow-providers-snowflake
+apache-airflow-providers-amazon

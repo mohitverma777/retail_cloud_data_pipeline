@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: raw_source
+    database: RETAIL_ANALYTICS_DB
+    schema: RAW_STAGING
+    tables:
+      - name: raw_transactions
+      - name: raw_unstructured_chats
+
+models:
+  - name: stg_transactions
+    columns:
+      - name: transaction_id
+        data_tests:
+          - unique
+          - not_null

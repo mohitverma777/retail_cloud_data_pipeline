@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  airflow-webserver:
+    image: apache/airflow:2.7.1-python3.11
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EXHAUSTIVE_PLUGINS=False
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=my_secure_data_pipeline_token_123
+      # FIXED: Matched exact packages version locks with scheduler to eliminate driver conflicts
+      - _PIP_ADDITIONAL_REQUIREMENTS=snowflake-connector-python==3.6.0 faker==22.0.0 pandas==2.1.4 pyarrow==14.0.1 boto3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    ports:
+      - "8080:8080"
+    volumes:
+      # Absolute Windows Path Map to bypass OneDrive permission blocks
+      - C:\Users\mohit\OneDrive\Desktop\java\cloud_data_pipeline\dags:/opt/airflow/dags
+    command: webserver
+
+  airflow-scheduler:
+    image: apache/airflow:2.7.1-python3.11
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      - LOAD_EXHAUSTIVE_PLUGINS=False
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow:airflow@postgres/airflow
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__WEBSERVER__SECRET_KEY=my_secure_data_pipeline_token_123
+      # FIXED: Removed dbt-snowflake since Airflow calls local shell natively, preventing container library bloat
+      - _PIP_ADDITIONAL_REQUIREMENTS=snowflake-connector-python==3.6.0 faker==22.0.0 pandas==2.1.4 pyarrow==14.0.1 dbt-snowflake==1.7.3 markupsafe==2.1.5 pydantic==2.5.3
+      # REMOVED: Deleted the stray relative directory path entry that was sitting here breaking environment parsing
+    volumes:
+      - C:\Users\mohit\OneDrive\Desktop\java\cloud_data_pipeline\dags:/opt/airflow/dags
+    command: scheduler
+
+volumes:
+  postgres_data:
