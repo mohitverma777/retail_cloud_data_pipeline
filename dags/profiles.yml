@@ -1,13 +1,13 @@
 retail_transformation:
   outputs:
     dev:
-      account: KCWRAED-YY61203
-      database: RETAIL_ANALYTICS_DB
-      password: Mohitdjbravo@007
-      role: SYSADMIN
-      schema: ANALYTICS_REPORTING
+      account: account
+      database: db_name
+      password: pass
+      role: role
+      schema: schema
       threads: 1
-      type: snowflake
-      user: Mohitverma777
-      warehouse: COMPUTE_WH
+      type: type
+      user: user
+      warehouse: warehouse
   target: dev
