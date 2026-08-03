@@ -147,14 +147,7 @@ dbt test --profiles-dir .
 ### 2. Marts Layer (`models/marts/`)
 * **`fct_retail_operations.sql`**: Combines sales transactions and support logs, categorizing customer interaction sentiment into operational categories (`CRITICAL ESCALATION`, `POSITIVE FEEDBACK`, `GENERAL ENQUIRY`).
 
----
 
-## 📝 Resume Impact Summary
-
-* **End-to-End Cloud Data Infrastructure**: Architected a scalable ELT data pipeline integrating Python, AWS S3, Snowflake, dbt Core, and Apache Airflow.
-* **Semi-Structured & Variant Data Processing**: Built Snowflake schema-on-read ingestion to parse JSON variant structures into structured analytical data models.
-* **Data Quality & Automated Testing**: Implemented dbt data assertions (`unique`, `not_null`) ensuring automated data quality validation across data marts.
-* **Containerized Workflow Orchestration**: Deployed pipeline components using Docker Compose with automated retries and task dependency tracking.
 
 ---
 
