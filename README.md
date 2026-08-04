@@ -16,7 +16,7 @@ An end-to-end, production-ready **Cloud ELT Data Pipeline** that streams synthet
 ```mermaid
 flowchart LR
     subgraph Ingestion ["1. Data Ingestion Layer"]
-        A["Python Generator (Faker)"] -->|"NDJSON & JSON"| B["AWS S3 Bucket\n(mohit-retail-data-lake)"]
+        A["Python Generator (Faker)"] -->|"NDJSON & JSON"| B["AWS S3 Bucket\n(retail-data-lake)"]
     end
 
     subgraph Staging ["2. Data Lake & Warehouse Layer"]
